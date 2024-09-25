@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Binary String Animation</title>
+    <link rel="stylesheet" href="/script.css">
+    <style>
+        /* CSS code will go here */
+    </style>
+</head>
+
+<body>
+    <div id="binary-container">
+        <!-- Binary strings will be displayed here -->
+    </div>
+
+    <script>
+        function getRandomBinaryString(length) {
+            let s = '';
+            for (let i = 0; i < length; i++) {
+                s += Math.random() < 0.5 ? '0' : '1';
+            }
+            return s;
+        }
+
+        const numStrings = 5;       // Number of binary strings
+        const stringLength = 32;    // Length of each binary string
+        let binaryStrings = [];
+
+        // Initialize binary strings
+        for (let i = 0; i < numStrings; i++) {
+            binaryStrings.push(getRandomBinaryString(stringLength));
+        }
+
+        const container = document.getElementById('binary-container');
+
+        // Function to display binary strings
+        function displayBinaryStrings() {
+            container.innerHTML = '';
+            binaryStrings.forEach(s => {
+                const p = document.createElement('p');
+                p.textContent = s;
+                container.appendChild(p);
+            });
+        }
+
+        // Function to flip bits in the binary strings
+        function flipBits() {
+            for (let i = 0; i < binaryStrings.length; i++) {
+                let s = binaryStrings[i];
+                let sArray = s.split('');
+                for (let j = 0; j < sArray.length; j++) {
+                    if (Math.random() < 0.1) { // Flip bit with 10% probability
+                        sArray[j] = sArray[j] === '0' ? '1' : '0';
+                    }
+                }
+                binaryStrings[i] = sArray.join('');
+            }
+        }
+
+        // Update function to animate the flipping of bits
+        function update() {
+            flipBits();
+            displayBinaryStrings();
+        }
+
+        // Initial display and animation setup
+        displayBinaryStrings();
+        setInterval(update, 100); // Update every 100 milliseconds
+    </script>
+</body>
+
+</html>
